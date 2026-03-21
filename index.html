@@ -1,12 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karla's JS project-1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TODO – Tehtävälista</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Karla's JS project-1</h1>
-    <h3>Welcome to my JS-course project-1</h3>
+
+  <div class="app-wrapper">
+
+    <!-- Header -->
+    <header class="app-header">
+      <h1>📋 Tehtävälista</h1>
+      <p class="subtitle">Hallitse päivittäiset tehtäväsi</p>
+    </header>
+
+    <!-- Add task form -->
+    <section class="add-section" aria-label="Lisää uusi tehtävä">
+      <form id="todo-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-input">Tehtävä <span class="required">*</span></label>
+            <input
+              type="text"
+              id="task-input"
+              placeholder="Kirjoita tehtävä tähän..."
+              autocomplete="off"
+              maxlength="120"
+            />
+            <span class="error-msg" id="task-error" role="alert"></span>
+          </div>
+
+          <div class="form-group form-group--sm">
+            <label for="priority-select">Prioriteetti</label>
+            <select id="priority-select">
+              <option value="normal">Normaali</option>
+              <option value="high">Korkea 🔴</option>
+              <option value="low">Matala 🟢</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="due-date">Määräpäivä (valinnainen)</label>
+            <input type="date" id="due-date" />
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="important-check" />
+              <span class="checkmark"></span>
+              Merkitse tärkeäksi ⭐
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="add-btn">
+          + Lisää tehtävä
+        </button>
+      </form>
+    </section>
+
+    <!-- Stats bar -->
+    <section class="stats-bar" aria-label="Tilastot">
+      <div class="stat">
+        <span class="stat-number" id="count-all">0</span>
+        <span class="stat-label">Yhteensä</span>
+      </div>
+      <div class="stat stat--active">
+        <span class="stat-number" id="count-active">0</span>
+        <span class="stat-label">Avoinna</span>
+      </div>
+      <div class="stat stat--done">
+        <span class="stat-number" id="count-done">0</span>
+        <span class="stat-label">Tehty</span>
+      </div>
+    </section>
+
+    <!-- Filter + sort bar -->
+    <div class="toolbar">
+      <div class="filter-btns" role="group" aria-label="Suodata tehtäviä">
+        <button class="filter-btn active" data-filter="all">Kaikki</button>
+        <button class="filter-btn" data-filter="active">Avoinna</button>
+        <button class="filter-btn" data-filter="done">Tehty</button>
+        <button class="filter-btn" data-filter="important">Tärkeät ⭐</button>
+      </div>
+      <button class="btn btn-danger btn-sm" id="clear-done-btn" title="Poista kaikki tehdyt">
+        🗑 Poista tehdyt
+      </button>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state hidden" id="empty-state">
+      <div class="empty-icon">📭</div>
+      <p>Ei tehtäviä näytettäväksi.</p>
+    </div>
+
+    <!-- Task list -->
+    <ul class="todo-list" id="todo-list" aria-label="Tehtävälista" aria-live="polite"></ul>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
