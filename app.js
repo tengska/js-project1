@@ -10,6 +10,7 @@
    ========================================= */
 
 const STORAGE_KEY = 'todo_tasks_v1';
+const THEME_KEY   = 'todo_theme';
 const MIN_LENGTH  = 3; // Tehtävän minimipituus merkeissä
 
 /* =========================================
@@ -33,6 +34,7 @@ const countDone     = document.getElementById('count-done');
 
 const filterBtns    = document.querySelectorAll('.filter-btn');
 const clearDoneBtn  = document.getElementById('clear-done-btn');
+const themeToggle   = document.getElementById('theme-toggle');
 const toast         = document.getElementById('toast');
 
 /* =========================================
@@ -42,6 +44,31 @@ const toast         = document.getElementById('toast');
 let tasks         = [];   // Kaikki tehtävät
 let activeFilter  = 'all'; // Aktiivinen suodatin
 let toastTimer    = null;
+
+/* =========================================
+   Teema (dark / light mode)
+   ========================================= */
+
+/**
+ * Ladataan tallennettu teema localStoragesta ja asetetaan se sivulle.
+ */
+function loadTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || 'light';
+  document.documentElement.dataset.theme = saved;
+  themeToggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+}
+
+/**
+ * Vaihtaa teeman light ↔ dark ja tallentaa valinnan.
+ */
+function toggleTheme() {
+  const current = document.documentElement.dataset.theme;
+  const next    = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem(THEME_KEY, next);
+  themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+  showToast(next === 'dark' ? 'Dark mode käytössä 🌙' : 'Light mode käytössä ☀️');
+}
 
 /* =========================================
    LocalStorage – luku ja tallennus
@@ -392,10 +419,14 @@ filterBtns.forEach(btn => {
 // Poista tehdyt -nappi
 clearDoneBtn.addEventListener('click', clearDone);
 
+// Teema-toggli
+themeToggle.addEventListener('click', toggleTheme);
+
 /* =========================================
    Käynnistys
    ========================================= */
 
+loadTheme();
 loadTasks();
 renderList();
 updateStats();

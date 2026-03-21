@@ -32,8 +32,28 @@
 }
 
 /* =========================================
+   Dark mode overrides
+   ========================================= */
+[data-theme="dark"] {
+  --color-bg:        #0f172a;
+  --color-surface:   #1e293b;
+  --color-border:    #334155;
+  --color-text:      #f1f5f9;
+  --color-muted:     #94a3b8;
+  --color-done-bg:   rgba(20, 83, 45, .25);
+  --color-error-bg:  rgba(127, 29, 29, .25);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.35);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.45);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,.55);
+}
+
+/* =========================================
    Base
    ========================================= */
+html {
+  transition: background-color .25s ease, color .25s ease;
+}
+
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background: var(--color-bg);
@@ -59,6 +79,10 @@ body {
   margin-bottom: 1.75rem;
 }
 
+.app-header {
+  position: relative;
+}
+
 .app-header h1 {
   font-size: 2.2rem;
   font-weight: 800;
@@ -69,6 +93,30 @@ body {
 .app-header .subtitle {
   color: var(--color-muted);
   margin-top: .25rem;
+}
+
+.theme-toggle-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: scale(1.1) rotate(15deg);
 }
 
 /* =========================================
