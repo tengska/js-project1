@@ -22,7 +22,7 @@ const MIN_LENGTH  = 3;
 const translations = {
   fi: {
     'page-title':        'TODO – Tehtävälista',
-    'app-title':         '📋 Tehtävälista',
+    'app-title':         'Tehtävälista',
     'app-subtitle':      'Hallitse päivittäiset tehtäväsi',
     'label-task':        'Tehtävä',
     'placeholder-task':  'Kirjoita tehtävä tähän...',
@@ -73,7 +73,7 @@ const translations = {
   },
   en: {
     'page-title':        'TODO – Task List',
-    'app-title':         '📋 Task List',
+    'app-title':         'Task List',
     'app-subtitle':      'Manage your daily tasks',
     'label-task':        'Task',
     'placeholder-task':  'Write your task here...',

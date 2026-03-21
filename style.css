@@ -8,26 +8,26 @@
 }
 
 :root {
-  --color-bg:        #f0f4f8;
+  --color-bg:        #f5f3ff;
   --color-surface:   #ffffff;
-  --color-border:    #d1dbe8;
-  --color-text:      #1e293b;
-  --color-muted:     #64748b;
-  --color-primary:   #3b82f6;
-  --color-primary-h: #2563eb;
+  --color-border:    #ddd6fe;
+  --color-text:      #1e1b4b;
+  --color-muted:     #6b7280;
+  --color-primary:   #7c3aed;
+  --color-primary-h: #6d28d9;
   --color-danger:    #ef4444;
   --color-danger-h:  #dc2626;
   --color-success:   #22c55e;
   --color-warning:   #f59e0b;
-  --color-done-bg:   #f1fdf4;
+  --color-done-bg:   #f0fdf4;
   --color-error-bg:  #fef2f2;
   --color-error-brd: #ef4444;
   --radius-sm:  6px;
   --radius-md:  10px;
   --radius-lg:  16px;
-  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
-  --shadow-md:  0 4px 12px rgba(0,0,0,.10);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,.12);
+  --shadow-sm:  0 1px 3px rgba(109,40,217,.07);
+  --shadow-md:  0 4px 12px rgba(109,40,217,.10);
+  --shadow-lg:  0 8px 24px rgba(109,40,217,.14);
   --transition: .18s ease;
 }
 
@@ -35,16 +35,18 @@
    Dark mode overrides
    ========================================= */
 [data-theme="dark"] {
-  --color-bg:        #0f172a;
-  --color-surface:   #1e293b;
-  --color-border:    #334155;
-  --color-text:      #f1f5f9;
-  --color-muted:     #94a3b8;
+  --color-bg:        #0d0a1a;
+  --color-surface:   #1a1232;
+  --color-border:    #2e2057;
+  --color-text:      #ede9fe;
+  --color-muted:     #a78bfa;
+  --color-primary:   #a78bfa;
+  --color-primary-h: #8b5cf6;
   --color-done-bg:   rgba(20, 83, 45, .25);
   --color-error-bg:  rgba(127, 29, 29, .25);
-  --shadow-sm:  0 1px 3px rgba(0,0,0,.35);
-  --shadow-md:  0 4px 12px rgba(0,0,0,.45);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,.55);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.4);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.5);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,.6);
 }
 
 /* =========================================
@@ -81,11 +83,12 @@ body {
 }
 
 .app-header h1 {
-  font-family: 'Caveat', cursive;
-  font-size: 2.8rem;
-  font-weight: 700;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 400;
   color: var(--color-primary);
-  letter-spacing: .5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .app-header .subtitle {
