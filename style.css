@@ -77,9 +77,6 @@ body {
 .app-header {
   text-align: center;
   margin-bottom: 1.75rem;
-}
-
-.app-header {
   position: relative;
 }
 
@@ -95,16 +92,24 @@ body {
   margin-top: .25rem;
 }
 
-.theme-toggle-btn {
+/* Container for theme + lang toggle buttons */
+.header-controls {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  gap: .45rem;
+  align-items: center;
+}
+
+/* Shared base for both toggle buttons */
+.theme-toggle-btn,
+.lang-toggle-btn {
   width: 42px;
   height: 42px;
   border-radius: 50%;
   border: 2px solid var(--color-border);
   background: var(--color-surface);
-  font-size: 1.25rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -113,11 +118,24 @@ body {
   transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
-.theme-toggle-btn:hover {
+.theme-toggle-btn { font-size: 1.25rem; }
+
+.lang-toggle-btn {
+  font-size: .78rem;
+  font-weight: 800;
+  font-family: inherit;
+  letter-spacing: .5px;
+  color: var(--color-text);
+}
+
+.theme-toggle-btn:hover,
+.lang-toggle-btn:hover {
   border-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  transform: scale(1.1) rotate(15deg);
+  transform: scale(1.1);
 }
+
+.theme-toggle-btn:hover { transform: scale(1.1) rotate(15deg); }
 
 /* =========================================
    Add-task section
