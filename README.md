@@ -1,13 +1,13 @@
 # TODO App – Karla Tengström
 
-A clean, modern task management app built as a JavaScript course project. Solo work, all code written by me.
+A clean, modern task management app built as a JavaScript course project. Solo work!
 
 ---
 
 ## 🔗 Links
 
-Live app: [tengska.netlify.app](https://tengska.netlify.app) ← *update with your actual Netlify URL*
-Video walkthrough: *add link here when recorded*
+Live app: [tengska.netlify.app](https://karla-js-courseproject1.netlify.app/)
+Video walkthrough: *adding link here when recorded*
 
 ---
 
@@ -34,18 +34,17 @@ A lot about DOM manipulation without leaning on any libraries, how localStorage 
 **Things still unclear:**
 Getting smoother with async JS and fetch — that's the next thing to properly dig into.
 
-**Self-assessment: xx/7 p** ← *fill in your own score*
-
----
-
-## 🗣️ Feedback for the teacher
-
-*Fill in your own thoughts here — how has the course felt, what would support your learning, etc.*
+**Self-assessment: 6/7 p**
+I think I hit all the major requirements and added some nice extras, but there's always room to polish the code and UX further. Overall I'm happy with how it turned out and what I learned along the way. Minus point for using Claude as an AI assistant — I know we were supposed to do it all ourselves, but I couldn't resist getting some help with planning and debugging. 😅
 
 ---
 
 ## Table of contents
 
+- [🔗 Links](#-links)
+- [👤 Work distribution](#-work-distribution)
+- [💭 My take on the project and what I learned](#-my-take-on-the-project-and-what-i-learned)
+- [Table of contents](#table-of-contents)
 - [About the app](#about-the-app)
 - [Known bugs](#known-bugs)
 - [Screenshots](#screenshots)
@@ -61,6 +60,7 @@ Getting smoother with async JS and fetch — that's the next thing to properly d
 **TODO App** is a browser-based task manager that lets you add, complete, and delete tasks — with a few extra touches to make it actually pleasant to use.
 
 **Features:**
+
 - Add tasks with priority level (high / normal / low), optional due date, and an "important" flag
 - Mark tasks as done or delete them
 - Filter view: All / Active / Done / Important
@@ -81,9 +81,7 @@ If something looks off, the most likely culprit is the date input rendering slig
 
 ## Screenshots
 
-*Add at least one screenshot of the working app here*
-
-`![TODO App screenshot](your-screenshot-url-here)`
+![Screenshot of the TODO App](image.png)
 
 ---
 
@@ -123,7 +121,7 @@ cd js-project1
 ## Credits
 
 - [Google Fonts – Permanent Marker](https://fonts.google.com/specimen/Permanent+Marker) — title font
-- [Claude (Anthropic)](https://claude.ai) — used as an AI coding assistant during development to help plan features, write and review code, and work through implementation details
+- [Claude (Anthropic)](https://claude.ai) — used as an AI coding assistant during development to help plan features, write and review code, and work through implementation details. A M A Z I N G!
 - MDN Web Docs — go-to reference for DOM APIs and localStorage
 
 ---
