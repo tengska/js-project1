@@ -1,13 +1,13 @@
 /**
- * app.js – TODO-sovelluksen logiikka
- * Käyttää vain nativia JavaScriptiä ja localStorage:a.
- * Tukee suomen ja englannin kieltä (i18n).
+ * app.js – TODO application logic
+ * Uses only native JavaScript and localStorage.
+ * Supports Finnish and English languages (i18n).
  */
 
 'use strict';
 
 /* =========================================
-   Vakiot
+   Constants
    ========================================= */
 
 const STORAGE_KEY = 'todo_tasks_v1';
@@ -16,7 +16,7 @@ const LANG_KEY    = 'todo_lang';
 const MIN_LENGTH  = 3;
 
 /* =========================================
-   Käännökset (i18n)
+   Translations (i18n)
    ========================================= */
 
 const translations = {
@@ -125,8 +125,8 @@ const translations = {
 };
 
 /**
- * Palauttaa käännetyn merkkijonon nykyisellä kielellä.
- * Tukee funktiomuotoisia käännöksiä parametreilla.
+ * Returns the translated string for the current language.
+ * Supports function-based translations with parameters.
  */
 function t(key, ...args) {
   const val = translations[currentLang][key] || translations['fi'][key] || key;
@@ -134,7 +134,7 @@ function t(key, ...args) {
 }
 
 /* =========================================
-   DOM-viittaukset
+   DOM references
    ========================================= */
 
 const form           = document.getElementById('todo-form');
@@ -159,7 +159,7 @@ const langToggle   = document.getElementById('lang-toggle');
 const toast        = document.getElementById('toast');
 
 /* =========================================
-   Tila (state)
+   State
    ========================================= */
 
 let tasks        = [];
@@ -168,11 +168,11 @@ let currentLang  = 'fi';
 let toastTimer   = null;
 
 /* =========================================
-   Kieli (i18n)
+   Language (i18n)
    ========================================= */
 
 /**
- * Ladataan tallennettu kieli localStoragesta ja päivitetään UI.
+ * Loads the saved language from localStorage and updates the UI.
  */
 function loadLanguage() {
   currentLang = localStorage.getItem(LANG_KEY) || 'fi';
@@ -180,18 +180,18 @@ function loadLanguage() {
 }
 
 /**
- * Vaihtaa kielen fi ↔ en, tallentaa ja päivittää UI.
+ * Toggles language fi ↔ en, saves and updates the UI.
  */
 function toggleLanguage() {
   currentLang = currentLang === 'fi' ? 'en' : 'fi';
   localStorage.setItem(LANG_KEY, currentLang);
   applyLanguage();
-  renderList(); // Päivitetään badget ym. dynaamiset tekstit
+  renderList(); // Update badges and other dynamic texts
   showToast(t('toast-lang'));
 }
 
 /**
- * Päivittää kaikki käännetyt tekstit sivulla.
+ * Updates all translated texts on the page.
  */
 function applyLanguage() {
   // <html lang>
@@ -200,38 +200,38 @@ function applyLanguage() {
   // <title>
   document.title = t('page-title');
 
-  // data-i18n: tekstisisältö
+  // data-i18n: text content
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.dataset.i18n);
   });
 
-  // data-i18n-placeholder: kentän placeholder
+  // data-i18n-placeholder: field placeholder
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     el.placeholder = t(el.dataset.i18nPlaceholder);
   });
 
-  // Aria-labelit osioille
+  // Aria-labels for sections
   document.getElementById('add-section').setAttribute('aria-label', t('aria-add-section'));
   document.getElementById('stats-section').setAttribute('aria-label', t('aria-stats'));
   document.getElementById('filter-group').setAttribute('aria-label', t('aria-filters'));
   todoList.setAttribute('aria-label', t('aria-todo-list'));
 
-  // Teema-napin aria-label
+  // Theme button aria-label
   themeToggle.setAttribute('aria-label', t('aria-theme'));
 
-  // Clear done -napin title
+  // Clear done button title
   clearDoneBtn.setAttribute('title', t('title-clear-done'));
 
-  // Lang-napin teksti (näyttää mihin kieleen vaihdetaan)
+  // Lang button text (shows which language to switch to)
   langToggle.textContent = t('lang-btn-label');
 }
 
 /* =========================================
-   Teema (dark / light mode)
+   Theme (dark / light mode)
    ========================================= */
 
 /**
- * Ladataan tallennettu teema localStoragesta.
+ * Loads the saved theme from localStorage.
  */
 function loadTheme() {
   const saved = localStorage.getItem(THEME_KEY) || 'light';
@@ -240,7 +240,7 @@ function loadTheme() {
 }
 
 /**
- * Vaihtaa teeman light ↔ dark ja tallentaa valinnan.
+ * Toggles theme light ↔ dark and saves the selection.
  */
 function toggleTheme() {
   const current = document.documentElement.dataset.theme;
@@ -252,11 +252,11 @@ function toggleTheme() {
 }
 
 /* =========================================
-   LocalStorage – luku ja tallennus
+   LocalStorage – reading and saving
    ========================================= */
 
 /**
- * Ladataan tehtävät localStoragesta ohjelman käynnistyessä.
+ * Loads tasks from localStorage on application startup.
  */
 function loadTasks() {
   try {
@@ -268,19 +268,19 @@ function loadTasks() {
 }
 
 /**
- * Tallennetaan tehtävät localStorageen aina kun lista muuttuu.
+ * Saves tasks to localStorage whenever the list changes.
  */
 function saveTasks() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
 /* =========================================
-   Validointi
+   Validation
    ========================================= */
 
 /**
- * Tarkistaa tehtäväkentän arvon.
- * Palauttaa true jos ok, false jos virhe.
+ * Validates the task input field.
+ * Returns true if valid, false if there is an error.
  */
 function validateTaskInput() {
   const value = taskInput.value.trim();
@@ -300,7 +300,7 @@ function validateTaskInput() {
 }
 
 /**
- * Näyttää virheilmoituksen ja korostaa kentän punaisella.
+ * Shows an error message and highlights the field in red.
  */
 function showInputError(inputEl, errorEl, message) {
   inputEl.classList.add('input-error');
@@ -309,7 +309,7 @@ function showInputError(inputEl, errorEl, message) {
 }
 
 /**
- * Poistaa virheilmoituksen ja korostuksen.
+ * Removes the error message and highlight.
  */
 function clearInputError(inputEl, errorEl) {
   inputEl.classList.remove('input-error');
@@ -318,11 +318,11 @@ function clearInputError(inputEl, errorEl) {
 }
 
 /* =========================================
-   Tehtävien hallinta (CRUD)
+   Task management (CRUD)
    ========================================= */
 
 /**
- * Luo uuden tehtävä-objektin.
+ * Creates a new task object.
  */
 function createTask(text, priority, dueDate, important) {
   return {
@@ -337,7 +337,7 @@ function createTask(text, priority, dueDate, important) {
 }
 
 /**
- * Lisää uuden tehtävän listaan.
+ * Adds a new task to the list.
  */
 function addTask(text, priority, dueDate, important) {
   const task = createTask(text, priority, dueDate, important);
@@ -349,7 +349,7 @@ function addTask(text, priority, dueDate, important) {
 }
 
 /**
- * Poistaa tehtävän id:n perusteella.
+ * Deletes a task by its id.
  */
 function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== id);
@@ -360,7 +360,7 @@ function deleteTask(id) {
 }
 
 /**
- * Vaihtaa tehtävän done-tilan.
+ * Toggles the done state of a task.
  */
 function toggleDone(id) {
   const task = tasks.find(item => item.id === id);
@@ -373,7 +373,7 @@ function toggleDone(id) {
 }
 
 /**
- * Poistaa kaikki tehdyt tehtävät.
+ * Removes all completed tasks.
  */
 function clearDone() {
   const count = tasks.filter(item => item.done).length;
@@ -389,11 +389,11 @@ function clearDone() {
 }
 
 /* =========================================
-   Suodatus
+   Filtering
    ========================================= */
 
 /**
- * Palauttaa tehtävät aktiivisen suodattimen mukaan.
+ * Returns tasks according to the active filter.
  */
 function getFilteredTasks() {
   switch (activeFilter) {
@@ -405,11 +405,11 @@ function getFilteredTasks() {
 }
 
 /* =========================================
-   Renderöinti
+   Rendering
    ========================================= */
 
 /**
- * Renderöi listan nykyisten suodatettujen tehtävien mukaan.
+ * Renders the list based on the current filtered tasks.
  */
 function renderList() {
   const filtered = getFilteredTasks();
@@ -426,7 +426,7 @@ function renderList() {
 }
 
 /**
- * Rakentaa yhden tehtävärivin DOM-elementin.
+ * Builds the DOM element for a single task row.
  */
 function createTaskElement(task) {
   const li = document.createElement('li');
@@ -434,7 +434,7 @@ function createTaskElement(task) {
   li.dataset.id = task.id;
   li.dataset.priority = task.priority;
 
-  // --- Valmistumisnappi ---
+  // --- Toggle button ---
   const toggleBtn = document.createElement('button');
   toggleBtn.className = 'toggle-btn';
   toggleBtn.setAttribute('aria-label', task.done ? t('aria-mark-active') : t('aria-mark-done'));
@@ -442,7 +442,7 @@ function createTaskElement(task) {
   toggleBtn.innerHTML = task.done ? '✓' : '';
   toggleBtn.addEventListener('click', () => toggleDone(task.id));
 
-  // --- Sisältö ---
+  // --- Content ---
   const content = document.createElement('div');
   content.className = 'todo-content';
 
@@ -453,13 +453,13 @@ function createTaskElement(task) {
   const meta = document.createElement('div');
   meta.className = 'todo-meta';
 
-  // Prioriteetti-badge
+  // Priority badge
   const priorityBadge = document.createElement('span');
   priorityBadge.className = `badge badge-${task.priority}`;
   priorityBadge.textContent = t(`badge-${task.priority}`);
   meta.appendChild(priorityBadge);
 
-  // Tärkeä-badge
+  // Important badge
   if (task.important) {
     const importantBadge = document.createElement('span');
     importantBadge.className = 'badge badge-important';
@@ -467,7 +467,7 @@ function createTaskElement(task) {
     meta.appendChild(importantBadge);
   }
 
-  // Päivämäärä-badge
+  // Date badge
   if (task.dueDate) {
     const dateBadge = document.createElement('span');
     const today     = new Date().toISOString().slice(0, 10);
@@ -480,7 +480,7 @@ function createTaskElement(task) {
   content.appendChild(textEl);
   content.appendChild(meta);
 
-  // --- Poistonappi ---
+  // --- Delete button ---
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'delete-btn';
   deleteBtn.setAttribute('aria-label', t('aria-delete'));
@@ -496,11 +496,11 @@ function createTaskElement(task) {
 }
 
 /* =========================================
-   Tilastot
+   Statistics
    ========================================= */
 
 /**
- * Päivittää laskurit.
+ * Updates the counters.
  */
 function updateStats() {
   const total  = tasks.length;
@@ -513,11 +513,11 @@ function updateStats() {
 }
 
 /* =========================================
-   Toast-ilmoitus
+   Toast notification
    ========================================= */
 
 /**
- * Näyttää lyhyen toast-ilmoituksen.
+ * Shows a short toast notification.
  */
 function showToast(message) {
   clearTimeout(toastTimer);
@@ -533,11 +533,11 @@ function showToast(message) {
 }
 
 /* =========================================
-   Apufunktiot
+   Helper functions
    ========================================= */
 
 /**
- * Muotoilee ISO-päivämäärän muotoon pp.kk.vvvv.
+ * Formats an ISO date string to dd.mm.yyyy.
  */
 function formatDate(isoDate) {
   if (!isoDate) return '';
@@ -546,10 +546,10 @@ function formatDate(isoDate) {
 }
 
 /* =========================================
-   Tapahtumankuuntelijat
+   Event listeners
    ========================================= */
 
-// Lomakkeen lähetys
+// Form submission
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -570,14 +570,14 @@ form.addEventListener('submit', function (e) {
   taskInput.focus();
 });
 
-// Poistetaan virhekorostus kun käyttäjä alkaa kirjoittaa
+// Clear error highlight when the user starts typing
 taskInput.addEventListener('input', function () {
   if (taskInput.classList.contains('input-error')) {
     clearInputError(taskInput, taskError);
   }
 });
 
-// Suodatinnapit
+// Filter buttons
 filterBtns.forEach(btn => {
   btn.addEventListener('click', function () {
     filterBtns.forEach(b => b.classList.remove('active'));
@@ -587,17 +587,17 @@ filterBtns.forEach(btn => {
   });
 });
 
-// Poista tehdyt
+// Clear done
 clearDoneBtn.addEventListener('click', clearDone);
 
-// Teema-toggli
+// Theme toggle
 themeToggle.addEventListener('click', toggleTheme);
 
-// Kielitoggli
+// Language toggle
 langToggle.addEventListener('click', toggleLanguage);
 
 /* =========================================
-   Käynnistys
+   Initialization
    ========================================= */
 
 loadTheme();
